@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,13 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //CRUD User
-
-
+Route::prefix('users')->group(function () {
     Route::get('getAll', [UserController::class, 'getAll']);
-    Route::post('getProfile', [UserController::class, 'getProfile']);
-    Route::post('create', [TaskController::class, 'create']);
-    Route::put('updateProfile', [UserController::class, 'updateProfile']);
-    Route::delete('removeUser', [UserController::class, 'removeUser']);
-
-
-
+    Route::get('getUserById/{id}', [UserController::class, 'getUserById']);
+    Route::post('createUser', [UserController::class, 'createUser']);
+    Route::put('updateUserById/{id}', [UserController::class, 'updateUserById']);
+    Route::delete('removeUserById/{id}', [UserController::class, 'removeUserById']);
+});
