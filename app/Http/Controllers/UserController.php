@@ -25,11 +25,11 @@ class UserController extends Controller
             return response()->json(['error' => $exception->getMessage()], 500);
         }
     }
-    public function getProfile($id)
+    public function getUserById($id)
     {
         try {
             $user = User::find($id);
-            Log::info('get user profile done');
+            Log::info('get user done');
             $data = [
                 'data' => $user,
                 'sucess' => 'ok'

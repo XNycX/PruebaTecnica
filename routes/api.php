@@ -21,13 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //CRUD User
-
-
+Route::prefix('users')->group(function () {
     Route::get('getAll', [UserController::class, 'getAll']);
-    Route::post('getProfile', [UserController::class, 'getProfile']);
+    Route::get('getUserById/{id}', [UserController::class, 'getUserById']);
     Route::post('createUser', [TaskController::class, 'createUser']);
     Route::put('updateProfile', [UserController::class, 'updateProfile']);
     Route::delete('removeUser', [UserController::class, 'removeUser']);
-
-
-
+});
