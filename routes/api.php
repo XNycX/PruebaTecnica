@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('users')->group(function () {
     Route::get('getAll', [UserController::class, 'getAll']);
     Route::get('getUserById/{id}', [UserController::class, 'getUserById']);
-    Route::post('createUser', [TaskController::class, 'createUser']);
-    Route::put('updateProfile', [UserController::class, 'updateProfile']);
-    Route::delete('removeUser', [UserController::class, 'removeUser']);
+    Route::post('createUser', [UserController::class, 'createUser']);
+    Route::put('updateUserById/{id}', [UserController::class, 'updateUserById']);
+    Route::delete('removeUserById/{id}', [UserController::class, 'removeUserById']);
 });

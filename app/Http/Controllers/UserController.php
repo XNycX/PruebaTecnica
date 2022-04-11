@@ -43,11 +43,29 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     {
+
+        $this->validate($request, [
+            'nombre' => 'required',
+            'email' => 'required|email',
+            'contraseña' => 'required|min:6',
+            'telefono' => 'required|numeric',
+            'codigo' => 'required',
+        ],[
+                'nombre.required' => 'El nombre es requerido',
+                'email.required' => 'El email es requerido',
+                'email.email' => 'El email no es valido',
+                'contraseña.required' => 'La contraseña es requerida',
+                'contraseña.min' => 'La contraseña debe tener al menos 6 caracteres',
+                'telefono.required' => 'El telefono es requerido',
+                'telefono.numeric' => 'El telefono debe ser numerico',
+                'codigo.required' => 'El codigo es requerido',
+            ]);
+
         try {
             $user = new User();
             $user->nombre = $request->nombre;
             $user->email = $request->email;
-            $user->contraseña = $request->contraseña;
+            $user->contraseña = bcrypt($request->contraseña);
             $user->telefono =
             $request->telefono;
             $user->codigo = $request->codigo;
@@ -64,7 +82,7 @@ class UserController extends Controller
             return response()->json(['error' => $exception->getMessage()], 500);
         }
     }
-    public function updateProfile(Request $request, $id)
+    public function updateUserById(Request $request, $id)
     {
         try {
             $user = User::find($id);
@@ -86,7 +104,7 @@ class UserController extends Controller
             return response()->json(['error' => $exception->getMessage()], 500);
         }
     }
-    public function removeUser($id)
+    public function removeUserById($id)
     {
         try {
             $user = User::find($id);
@@ -102,6 +120,4 @@ class UserController extends Controller
             return response()->json(['error' => $exception->getMessage()], 500);
         }
     }
-
-
 }
